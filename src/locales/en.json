@@ -1,0 +1,127 @@
+{
+  "ui": {
+    "appTitle": "Iceland Atlas",
+    "appSubtitle": "Interactive trip map",
+    "places": "Places",
+    "search": "Search places…",
+    "layers": "Layers",
+    "category": "Category",
+    "all": "All",
+    "allFem": "All",
+    "noPlaces": "No places found.",
+    "loadingInfo": "Loading information and images…",
+    "noImages": "No images found on Wikimedia.",
+    "learnMore": "Learn more",
+    "backToMap": "Back to map",
+    "source": "Source",
+    "layer": "Layer",
+    "coordinates": "Coordinates",
+    "openMaps": "Open in Google Maps",
+    "fallbackPoint": "Point of interest",
+    "close": "Close",
+    "favorite": "Favorite",
+    "planned": "Planned",
+    "visited": "Visited",
+    "stopTime": "Stop time",
+    "winter": "Winter",
+    "weatherNow": "Weather now",
+    "wind": "Wind",
+    "addToDay": "Add to day",
+    "estimatedStop": "Estimated stop",
+    "winterAccess": "Winter access",
+    "favorites": "Favorites",
+    "days": "days",
+    "tripBuilder": "Trip builder",
+    "newDay": "New day",
+    "driving": "driving",
+    "onRoad": "on road",
+    "stops": "stops",
+    "explore": "Explore",
+    "myTrip": "My trip",
+    "status": "Status",
+    "weather": "Weather",
+    "liveRoads": "Live roads",
+    "tripInstructions": "Pick a day to see its route, time and stops. Drag stops to reorder or move them to another day.",
+    "noStops": "No stops yet. Open a place and add it to this day.",
+    "latitude": "Latitude",
+    "longitude": "Longitude",
+    "gusts": "gusts",
+    "language": "Language",
+    "mapLabel": "Map of Iceland",
+    "road": "Road",
+    "unknown": "Unknown",
+    "shareTrip": "Copy share link",
+    "exportJson": "JSON",
+    "exportCsv": "CSV",
+    "copyShareLink": "Copy this trip link",
+    "start": "Start",
+    "end": "End",
+    "notSet": "Not set",
+    "lowRisk": "Low risk",
+    "cautionRisk": "Use caution",
+    "highRisk": "High risk",
+    "tripDate": "Trip start date",
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "daylight": "Daylight",
+    "plannedMinutes": "planned / daylight min",
+    "comfortable": "Comfortable",
+    "fullDay": "Full day",
+    "unrealistic": "Unrealistic"
+    ,"routeWeather": "Weather along route"
+    ,"routeWeatherUnavailable": "Route weather unavailable"
+    ,"auroraForecast": "Aurora forecast"
+    ,"cloudCover": "cloud cover"
+    ,"auroraGood": "Good chance tonight"
+    ,"auroraPossible": "Possible tonight"
+    ,"auroraUnlikely": "Low chance tonight"
+    ,"auroraUnavailable": "Aurora data unavailable"
+    ,"tripStats": "Trip stats"
+    ,"budget": "Budget"
+    ,"currency": "€"
+    ,"add": "Add"
+    ,"rentalCar": "Rental car"
+    ,"fuel": "Fuel"
+    ,"hotels": "Hotels"
+    ,"food": "Food"
+    ,"parking": "Parking"
+    ,"baths": "Baths"
+    ,"activities": "Activities"
+    ,"categories": "categories"
+  },
+  "categories": {
+    "attraction": "Attraction",
+    "waterfall": "Waterfall",
+    "thermal": "Hot spring",
+    "glacier": "Glacier",
+    "beach": "Beach",
+    "viewpoint": "Viewpoint",
+    "parking": "Parking",
+    "stay": "Stay",
+    "shop": "Supermarket",
+    "fuel": "Fuel",
+    "food": "Food"
+  },
+  "weather": {
+    "clear": "Clear",
+    "cloudy": "Cloudy",
+    "fog": "Fog",
+    "rain": "Rain",
+    "snow": "Snow",
+    "showers": "Showers",
+    "snowShowers": "Snow showers",
+    "storm": "Storm"
+  },
+  "winter": {
+    "easy": "Good winter access",
+    "caution": "Use caution",
+    "difficult": "Difficult in winter",
+    "seasonal": "Mostly summer / may be closed"
+  },
+  "units": {
+    "minutes": "min",
+    "shortMinutes": "min",
+    "hours": "hr"
+  },
+  "fallbackSummary": "{category} in Iceland. This point comes from the imported KML route and is located at {lat}, {lng}."
+}

@@ -1,0 +1,127 @@
+{
+  "ui": {
+    "appTitle": "Iceland Atlas",
+    "appSubtitle": "Διαδραστικός χάρτης ταξιδιού",
+    "places": "Μέρη",
+    "search": "Αναζήτηση τοποθεσίας…",
+    "layers": "Layers",
+    "category": "Κατηγορία",
+    "all": "Όλα",
+    "allFem": "Όλες",
+    "noPlaces": "Δεν βρέθηκαν μέρη.",
+    "loadingInfo": "Φόρτωση πληροφοριών και εικόνων…",
+    "noImages": "Δεν βρέθηκαν εικόνες στο Wikimedia.",
+    "learnMore": "Μάθε περισσότερα",
+    "backToMap": "Πίσω στον χάρτη",
+    "source": "Πηγή",
+    "layer": "Layer",
+    "coordinates": "Συντεταγμένες",
+    "openMaps": "Άνοιγμα στο Google Maps",
+    "fallbackPoint": "Σημείο ενδιαφέροντος",
+    "close": "Κλείσιμο",
+    "favorite": "Αγαπημένο",
+    "planned": "Planned",
+    "visited": "Visited",
+    "stopTime": "Χρόνος στάσης",
+    "winter": "Χειμώνας",
+    "weatherNow": "Καιρός τώρα",
+    "wind": "Άνεμος",
+    "addToDay": "Προσθήκη σε ημέρα",
+    "estimatedStop": "Εκτιμώμενη στάση",
+    "winterAccess": "Χειμερινή πρόσβαση",
+    "favorites": "Αγαπημένα",
+    "days": "ημέρες",
+    "tripBuilder": "Trip builder",
+    "newDay": "Νέα ημέρα",
+    "driving": "οδήγηση",
+    "onRoad": "στο δρόμο",
+    "stops": "στάσεις",
+    "explore": "Εξερεύνηση",
+    "myTrip": "Το ταξίδι μου",
+    "status": "Κατάσταση",
+    "weather": "Καιρός",
+    "liveRoads": "Δρόμοι live",
+    "tripInstructions": "Διάλεξε ημέρα για διαδρομή, χρόνο και στάσεις. Σύρε τις στάσεις για αλλαγή σειράς ή ημέρας.",
+    "noStops": "Δεν έχεις βάλει στάσεις ακόμα. Άνοιξε ένα μέρος και πρόσθεσέ το σε αυτή την ημέρα.",
+    "latitude": "Γεωγραφικό πλάτος",
+    "longitude": "Γεωγραφικό μήκος",
+    "gusts": "ριπές",
+    "language": "Γλώσσα",
+    "mapLabel": "Χάρτης Ισλανδίας",
+    "road": "Δρόμος",
+    "unknown": "Άγνωστο",
+    "shareTrip": "Αντιγραφή συνδέσμου",
+    "exportJson": "JSON",
+    "exportCsv": "CSV",
+    "copyShareLink": "Αντιγραφή συνδέσμου ταξιδιού",
+    "start": "Αφετηρία",
+    "end": "Τερματισμός",
+    "notSet": "Δεν έχει οριστεί",
+    "lowRisk": "Χαμηλός κίνδυνος",
+    "cautionRisk": "Χρειάζεται προσοχή",
+    "highRisk": "Υψηλός κίνδυνος",
+    "tripDate": "Ημερομηνία έναρξης",
+    "sunrise": "Ανατολή",
+    "sunset": "Δύση",
+    "daylight": "Φως ημέρας",
+    "plannedMinutes": "λεπτά προγραμματισμού / φωτός",
+    "comfortable": "Άνετο",
+    "fullDay": "Πλήρης ημέρα",
+    "unrealistic": "Μη ρεαλιστικό"
+    ,"routeWeather": "Καιρός στη διαδρομή"
+    ,"routeWeatherUnavailable": "Ο καιρός διαδρομής δεν είναι διαθέσιμος"
+    ,"auroraForecast": "Πρόγνωση σέλαος"
+    ,"cloudCover": "νέφη"
+    ,"auroraGood": "Καλή πιθανότητα απόψε"
+    ,"auroraPossible": "Πιθανό απόψε"
+    ,"auroraUnlikely": "Μικρή πιθανότητα απόψε"
+    ,"auroraUnavailable": "Τα δεδομένα σέλαος δεν είναι διαθέσιμα"
+    ,"tripStats": "Στατιστικά ταξιδιού"
+    ,"budget": "Προϋπολογισμός"
+    ,"currency": "€"
+    ,"add": "Προσθήκη"
+    ,"rentalCar": "Ενοικίαση αυτοκινήτου"
+    ,"fuel": "Καύσιμα"
+    ,"hotels": "Ξενοδοχεία"
+    ,"food": "Φαγητό"
+    ,"parking": "Πάρκινγκ"
+    ,"baths": "Λουτρά"
+    ,"activities": "Δραστηριότητες"
+    ,"categories": "κατηγορίες"
+  },
+  "categories": {
+    "attraction": "Αξιοθέατο",
+    "waterfall": "Καταρράκτης",
+    "thermal": "Θερμές πηγές",
+    "glacier": "Παγετώνας",
+    "beach": "Παραλία",
+    "viewpoint": "Σημείο θέας",
+    "parking": "Πάρκινγκ",
+    "stay": "Διαμονή",
+    "shop": "Σούπερ μάρκετ",
+    "fuel": "Καύσιμα",
+    "food": "Φαγητό"
+  },
+  "weather": {
+    "clear": "Καθαρός",
+    "cloudy": "Νεφώσεις",
+    "fog": "Ομίχλη",
+    "rain": "Βροχή",
+    "snow": "Χιόνι",
+    "showers": "Μπόρες",
+    "snowShowers": "Χιονόπτωση",
+    "storm": "Καταιγίδα"
+  },
+  "winter": {
+    "easy": "Καλή χειμερινή πρόσβαση",
+    "caution": "Θέλει προσοχή",
+    "difficult": "Δύσκολο τον χειμώνα",
+    "seasonal": "Κυρίως θερινό / πιθανώς κλειστό"
+  },
+  "units": {
+    "minutes": "λεπτά",
+    "shortMinutes": "λ.",
+    "hours": "ώρ."
+  },
+  "fallbackSummary": "{category} στην Ισλανδία. Το σημείο προέρχεται από το KML route και βρίσκεται στις συντεταγμένες {lat}, {lng}."
+}
