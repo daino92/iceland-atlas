@@ -1,0 +1,79 @@
+.agents/skills/coding-patterns/SKILL.md
+  s_b913b3b00a2b1c::t_9317999a8e1324 1-340
+AGENTS.md
+  s_b913b3b00a2b1c::t_2313837b999b31 1-22
+index.html
+  s_b913b3b00a2b1c::t_4e467b3568e3f8 1-13
+package.json
+  s_b913b3b00a2b1c::t_7b911750344341 1-33
+pnpm-lock.yaml
+  s_b913b3b00a2b1c::t_4e870f006ac740 1-4501
+src/components/MapTools.tsx
+  s_b913b3b00a2b1c::t_d0053acac89198 1-56
+src/components/PlaceDetail.tsx
+  s_b913b3b00a2b1c::t_eeb36817c3c3f9 1-176
+src/components/PlaceModal.tsx
+  s_b913b3b00a2b1c::t_4325645b4b93e1 1-225
+src/components/index.ts
+  s_b913b3b00a2b1c::t_651f5e2d9e3256 1-8
+src/components/styles/Atlas.ts
+  s_b913b3b00a2b1c::t_14dd19b2a1f0e5 1-35
+src/components/styles/IcelandMap.ts
+  s_b913b3b00a2b1c::t_a5233c0c351ba5 1-123
+src/components/styles/MapTools.ts
+  s_b913b3b00a2b1c::t_47ec81c16fdd67 1-41
+src/components/styles/PlaceDetail.ts
+  s_b913b3b00a2b1c::t_fdaf54f68bae68 1-128
+src/components/styles/PlaceModal.ts
+  s_b913b3b00a2b1c::t_ce9d057101bb13 1-211
+src/components/styles/Sidebar.ts
+  s_b913b3b00a2b1c::t_e2e848e495a293 1-207
+src/components/styles/index.ts
+  s_b913b3b00a2b1c::t_a382b2db1daacb 1-8
+src/components/styles/shared.ts
+  s_b913b3b00a2b1c::t_1b469d27ac860e 1-64
+src/data.ts
+  s_b913b3b00a2b1c::t_b03da9931f6a53 1-1750
+src/hooks/index.ts
+  s_b913b3b00a2b1c::t_6d6c14424bf946 1-2
+src/hooks/useLanguage.ts
+  s_b913b3b00a2b1c::t_d7ffce6117f110 1-51
+src/lib/http.ts
+  s_b913b3b00a2b1c::t_396673c72d265e 1-25
+src/lib/metadata.ts
+  s_b913b3b00a2b1c::t_8caab653399d09 1-76
+src/lib/placeInfo.ts
+  s_b913b3b00a2b1c::t_08c64bbf219bb2 1-116
+src/lib/queryClient.ts
+  s_b913b3b00a2b1c::t_36a67d46ca7b38 1-19
+src/lib/routing.ts
+  s_b913b3b00a2b1c::t_2575c624f39872 1-35
+src/lib/tripExport.ts
+  s_b913b3b00a2b1c::t_a35bddb7b5d23d 1-45
+src/locales/index.ts
+  s_b913b3b00a2b1c::t_517fc19f64c779 1-2
+src/styles.css
+  s_b913b3b00a2b1c::t_5033773433f9ad 1-60
+tsconfig.app.json
+  s_b913b3b00a2b1c::t_069582ecbc2033 1-24
+tsconfig.node.json
+  s_b913b3b00a2b1c::t_e06cde8239500d 1-12
+.gitignore
+  s_b913b3b00a2b1c::t_c8921e057b301a 1-34
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "deb4eec1039f74165b61a5d829f25142c8ed4f8e",
+  "prompts": {},
+  "sessions": {
+    "s_b913b3b00a2b1c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0782c-c1ee-7380-a18d-3e4efe73dce8",
+        "model": "gpt-6-astra"
+      },
+      "human_author": "Dionysis <daino92@gmail.com>"
+    }
+  }
+}
