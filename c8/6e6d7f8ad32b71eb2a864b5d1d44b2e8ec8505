@@ -1,0 +1,88 @@
+src/locales/en.json
+  s_b913b3b00a2b1c::t_b741cd08dc3511 91-96
+  s_b913b3b00a2b1c::t_c0e0c116f45742 97-99
+  s_b913b3b00a2b1c::t_297a1752199659 104-105
+  s_b913b3b00a2b1c::t_782bc9def22cf2 100-103
+src/components/styles/TripBuilder.ts
+  s_b913b3b00a2b1c::t_b741cd08dc3511 380-391
+src/components/Atlas.tsx
+  s_b913b3b00a2b1c::t_0e67b14063697a 80-87,96-101
+  s_b913b3b00a2b1c::t_7cf0a395edecdf 26,107-109,240-241
+  s_b913b3b00a2b1c::t_f7bab8e381f36e 104-105
+  s_b913b3b00a2b1c::t_297a1752199659 49-50,134-135,254-255,266-267
+  s_b913b3b00a2b1c::t_a904764e2ba0c7 217,221-225
+  s_b913b3b00a2b1c::t_db310670d5dc34 220,226
+  s_b913b3b00a2b1c::t_d981913b56e6c6 106
+index.html
+  s_b913b3b00a2b1c::t_880059624e653b 6
+src/types/index.ts
+  s_b913b3b00a2b1c::t_3779c00ca3c554 79,88-89,131-135
+  s_b913b3b00a2b1c::t_7e10ee43ca2ee0 87
+  s_b913b3b00a2b1c::t_970a1ba0af19bc 136-137
+src/components/TripBuilder.tsx
+  s_b913b3b00a2b1c::t_a904764e2ba0c7 93,99-102,134,140-143
+  s_b913b3b00a2b1c::t_c0e0c116f45742 291-305,416-425,590-597
+  s_b913b3b00a2b1c::t_782bc9def22cf2 524-535
+  s_b913b3b00a2b1c::t_db310670d5dc34 56,96-98,137-139,287-290,306-308,413-415,692-700
+  s_b913b3b00a2b1c::t_231fc3bd5c69b3 609
+  s_b913b3b00a2b1c::t_b741cd08dc3511 42
+  s_b913b3b00a2b1c::t_7cf0a395edecdf 63,114-115,155-156
+src/lib/index.ts
+  s_b913b3b00a2b1c::t_7e10ee43ca2ee0 12
+src/lib/routePlanning.ts
+  s_b913b3b00a2b1c::t_7e10ee43ca2ee0 1-50
+README.md
+  s_b913b3b00a2b1c::t_87ba20a4033438 55-57
+  s_b913b3b00a2b1c::t_abf2fbba267a45 52,58-59,68,70,89,92
+  s_b913b3b00a2b1c::t_9f2d5f893ebaad 96-101
+src/hooks/useQueries.ts
+  s_b913b3b00a2b1c::t_f7bab8e381f36e 156-160,162-163
+  s_b913b3b00a2b1c::t_daccca8d9aa7cf 11,24,168-176
+  s_b913b3b00a2b1c::t_4c17efe8f7a661 144-145,148,150
+  s_b913b3b00a2b1c::t_50c05b4a882941 177
+src/components/IcelandMap.tsx
+  s_b913b3b00a2b1c::t_297a1752199659 24-25,118-119,129,257-259,261-290
+  s_b913b3b00a2b1c::t_7982dcf56e8718 260
+  s_b913b3b00a2b1c::t_b45bd35da46e21 291
+src/components/MapTools.tsx
+  s_b913b3b00a2b1c::t_297a1752199659 15-16,29-30,56-60
+  s_b913b3b00a2b1c::t_0aa7d34fa1578b 61
+src/locales/el.json
+  s_b913b3b00a2b1c::t_b741cd08dc3511 91-96
+  s_b913b3b00a2b1c::t_297a1752199659 104-105
+  s_b913b3b00a2b1c::t_c0e0c116f45742 97-99
+  s_b913b3b00a2b1c::t_782bc9def22cf2 100-103
+public/favicon.svg
+  s_b913b3b00a2b1c::t_880059624e653b 1-12
+src/components/Sidebar.tsx
+  s_b913b3b00a2b1c::t_db310670d5dc34 77-79,136-138,378-380
+  s_b913b3b00a2b1c::t_7cf0a395edecdf 31,97-98,156-157,399-400
+  s_b913b3b00a2b1c::t_a904764e2ba0c7 74,80-83,133,139-142,375,381-384
+src/lib/liveData.ts
+  s_b913b3b00a2b1c::t_f7bab8e381f36e 158-159,165,176-179
+  s_b913b3b00a2b1c::t_daccca8d9aa7cf 8,190-196,199-221
+  s_b913b3b00a2b1c::t_4c17efe8f7a661 116-117,124,133,138-149
+  s_b913b3b00a2b1c::t_7982dcf56e8718 122-123,136-137,197-198
+  s_b913b3b00a2b1c::t_49aa7a134a51e4 125
+  s_b913b3b00a2b1c::t_48548e032df1a6 222
+src/lib/trip.ts
+  s_b913b3b00a2b1c::t_b7d925046b0b41 23-24,47-48,54,222-241,295-297
+  s_b913b3b00a2b1c::t_30681fbced6fac 10
+  s_b913b3b00a2b1c::t_7e10ee43ca2ee0 22,46,218-221,242-248,294,298
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "c86e6d7f8ad32b71eb2a864b5d1d44b2e8ec8505",
+  "prompts": {},
+  "sessions": {
+    "s_b913b3b00a2b1c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a0782c-c1ee-7380-a18d-3e4efe73dce8",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "Dionysis <daino92@gmail.com>"
+    }
+  }
+}
