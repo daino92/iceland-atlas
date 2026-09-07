@@ -9,3 +9,4 @@ export * from "./queryClient";
 export * from "./tripExport";
 export * from "./daylight";
 export * from "./tripStats";
+export * from "./routePlanning";

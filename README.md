@@ -49,8 +49,14 @@ pnpm preview
 - Sunrise, sunset and daylight-hour calculations for Iceland
 - Day feasibility score: Comfortable, Full day, or Unrealistic
 - Route-segment weather summary with temperature, conditions and wind gusts
+- Route weather selected for the planned departure date and time
 - Aurora forecast using cloud coverage and NOAA KP data
 - Weather and road-risk summary for the active day
+- Nearest-neighbor route optimization for the active day
+- Departure-time selection with estimated arrival
+- Active-day timeline showing departure, arrival and planned time
+- Overnight accommodation selection per day
+- Route elevation summary with ascent, descent, maximum elevation and difficulty
 
 ### Trip management
 
@@ -59,7 +65,9 @@ pnpm preview
 - JSON and CSV trip export
 - Budget planner for rental cars, fuel, hotels, food, parking, baths and activities
 - Daily budget items and total trip budget
+- Currency selection and per-person budget totals
 - Trip statistics for planned places, estimated kilometers, stop hours and category counts
+- Route controls to fit the active route and replay it on the map
 
 ### Platform and engineering
 
@@ -75,18 +83,22 @@ pnpm preview
 
 These are proposed features. When one is implemented, move it into the relevant section above and document its user-facing behavior here.
 
-- Route optimization that reorders stops for the shortest or fastest itinerary
 - Maximum daily driving-time and road-type preferences
 - Saved trip history with named itineraries and duplication
 - Route elevation profile and steep-road warnings
-- Richer route-weather forecasts by departure time and route segment
+- Richer route-weather forecasts by multiple departure windows and route segment
 - Aurora history and best viewing windows by hour
 - Currency selection and per-person budget splitting
-- Accommodation planning with overnight locations and hotel costs
-- Map fit-to-day and route replay controls
+- Accommodation planning with hotel costs and overnight distance checks
 - Mobile bottom-sheet trip planner with improved touch interactions
 - Import and export using GPX and Google Maps-compatible formats
 - Automated tests for trip persistence, drag-and-drop, route calculations and localization
+- Accommodation nights and overnight-location planning
+- GPX import and export for hiking and driving routes
+- Per-person budget splitting and currency conversion
+- Elevation profiles and hiking difficulty warnings
+- Offline trip-pack downloads for selected places, routes and map areas
+- Accessibility filters for parking, walks and facilities
 
 ## Data notes
 

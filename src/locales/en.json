@@ -88,6 +88,21 @@
     ,"baths": "Baths"
     ,"activities": "Activities"
     ,"categories": "categories"
+    ,"departureTime": "Departure time"
+    ,"optimizeRoute": "Optimize this day"
+    ,"timeline": "Day timeline"
+    ,"departure": "Departure"
+    ,"arrival": "Estimated arrival"
+    ,"plannedTime": "Planned time"
+    ,"overnight": "Overnight"
+    ,"travelers": "travelers"
+    ,"perPerson": "per person"
+    ,"elevation": "Route elevation"
+    ,"easy": "Easy"
+    ,"moderate": "Moderate"
+    ,"difficult": "Difficult"
+    ,"fitRoute": "Fit route"
+    ,"replayRoute": "Replay route"
   },
   "categories": {
     "attraction": "Attraction",

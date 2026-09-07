@@ -76,6 +76,7 @@ export type TripDay = {
   placeIds: string[];
   startPlaceId?: string;
   endPlaceId?: string;
+  overnightPlaceId?: string;
 };
 
 export type TripData = {
@@ -83,6 +84,9 @@ export type TripData = {
   days: TripDay[];
   startDate?: string;
   budgetItems?: BudgetItem[];
+  startTime?: string;
+  currency?: "EUR" | "ISK" | "USD";
+  travelers?: number;
 };
 
 export type BudgetCategory =
@@ -122,6 +126,13 @@ export type RouteWeatherSegment = {
   windGusts: number;
   precipitation: number;
   weatherCode: number;
+};
+
+export type RouteElevation = {
+  ascentMeters: number;
+  descentMeters: number;
+  maxElevationMeters: number;
+  difficulty: "easy" | "moderate" | "difficult";
 };
 
 export type AuroraForecast = {

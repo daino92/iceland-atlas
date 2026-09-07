@@ -8,6 +8,7 @@ import type {
   RoadConditions,
   RouteResult,
   RouteWeatherSegment,
+  RouteElevation,
 } from "@/types";
 import {
   getWiki,
@@ -20,6 +21,7 @@ import {
   getPlaceMeta,
   getRouteWeather,
   getAuroraForecast,
+  getRouteElevation,
 } from "@/lib";
 
 const CONTENT_STALE_TIME = 24 * 60 * 60 * 1000;
@@ -139,21 +141,37 @@ export const useDayRisk = (places: Location[], enabled: boolean) =>
 export const useRouteWeather = (
   route: RouteResult | null,
   enabled: boolean,
+  date?: string,
+  time?: string,
 ) =>
   useQuery<RouteWeatherSegment[]>({
-    queryKey: ["route-weather", route?.coordinates],
+    queryKey: ["route-weather", route?.coordinates, date, time],
     queryFn: route
-      ? ({ signal }) => getRouteWeather(route.coordinates, signal)
+      ? ({ signal }) => getRouteWeather(route.coordinates, signal, date, time)
       : skipToken,
     enabled: enabled && Boolean(route),
     staleTime: LIVE_STALE_TIME,
   });
 
-export const useAuroraForecast = (enabled: boolean) =>
+export const useAuroraForecast = (
+  enabled: boolean,
+  date?: string,
+  time?: string,
+) =>
   useQuery<AuroraForecast>({
-    queryKey: ["aurora-forecast"],
-    queryFn: ({ signal }) => getAuroraForecast(signal),
+    queryKey: ["aurora-forecast", date, time],
+    queryFn: ({ signal }) => getAuroraForecast(signal, date, time),
     enabled,
     staleTime: LIVE_STALE_TIME,
     refetchInterval: enabled ? LIVE_STALE_TIME : false,
+  });
+
+export const useRouteElevation = (route: RouteResult | null, enabled: boolean) =>
+  useQuery<RouteElevation>({
+    queryKey: ["route-elevation", route?.coordinates],
+    queryFn: route
+      ? ({ signal }) => getRouteElevation(route.coordinates, signal)
+      : skipToken,
+    enabled: enabled && Boolean(route),
+    staleTime: CONTENT_STALE_TIME,
   });

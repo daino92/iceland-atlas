@@ -28,6 +28,7 @@ import type {
   Language,
   RouteResult,
   RouteWeatherSegment,
+  RouteElevation,
   TripData,
 } from "@/types";
 
@@ -70,8 +71,16 @@ interface Props {
     dayId: string,
     endpoints: { startPlaceId?: string; endPlaceId?: string },
   ) => void;
+  setOvernightPlace: (dayId: string, placeId?: string) => void;
   startDate: string;
   setStartDate: (date: string) => void;
+  startTime: string;
+  setStartTime: (time: string) => void;
+  optimizeDay: (dayId: string) => void;
+  currency: "EUR" | "ISK" | "USD";
+  travelers: number;
+  setCurrency: (currency: "EUR" | "ISK" | "USD") => void;
+  setTravelers: (travelers: number) => void;
   budgetItems: BudgetItem[];
   addBudgetItem: (dayId: string, category: BudgetCategory, amount: number) => void;
   removeBudgetItem: (itemId: string) => void;
@@ -85,6 +94,8 @@ interface Props {
   routeWeatherLoading: boolean;
   aurora: AuroraForecast | null;
   auroraLoading: boolean;
+  elevation: RouteElevation | null;
+  elevationLoading: boolean;
 }
 
 const Sidebar = (props: Props) => {
@@ -119,8 +130,16 @@ const Sidebar = (props: Props) => {
     movePlace,
     movePlaceBetweenDays,
     setDayEndpoints,
+    setOvernightPlace,
     startDate,
     setStartDate,
+    startTime,
+    setStartTime,
+    optimizeDay,
+    currency,
+    travelers,
+    setCurrency,
+    setTravelers,
     budgetItems,
     addBudgetItem,
     removeBudgetItem,
@@ -134,6 +153,8 @@ const Sidebar = (props: Props) => {
     routeWeatherLoading,
     aurora,
     auroraLoading,
+    elevation,
+    elevationLoading,
   } = props;
   const layers = ["all", ...new Set(allPlaces.map((place) => place.layer))];
   const cats = ["all", ...new Set(allPlaces.map((place) => place.category))];
@@ -351,8 +372,16 @@ const Sidebar = (props: Props) => {
           movePlace={movePlace}
           movePlaceBetweenDays={movePlaceBetweenDays}
           setDayEndpoints={setDayEndpoints}
+          setOvernightPlace={setOvernightPlace}
           startDate={startDate}
           setStartDate={setStartDate}
+          startTime={startTime}
+          setStartTime={setStartTime}
+          optimizeDay={optimizeDay}
+          currency={currency}
+          travelers={travelers}
+          setCurrency={setCurrency}
+          setTravelers={setTravelers}
           budgetItems={budgetItems}
           addBudgetItem={addBudgetItem}
           removeBudgetItem={removeBudgetItem}
@@ -367,6 +396,8 @@ const Sidebar = (props: Props) => {
           routeWeatherLoading={routeWeatherLoading}
           aurora={aurora}
           auroraLoading={auroraLoading}
+          elevation={elevation}
+          elevationLoading={elevationLoading}
           language={language}
         />
       )}

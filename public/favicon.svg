@@ -1,1 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#081018"/><path d="M12 44 30 14l22 30H12Z" fill="#D7F5FF"/><circle cx="31" cy="31" r="7" fill="#0B83C9"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Iceland Atlas">
+  <defs>
+    <clipPath id="flag"><rect x="4" y="4" width="56" height="56" rx="14"/></clipPath>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#081018"/>
+  <g clip-path="url(#flag)">
+    <rect x="4" y="4" width="56" height="56" fill="#02529C"/>
+    <path d="M20 4h11v21h29v14H31v21H20V39H4V25h16Z" fill="#FFF"/>
+    <path d="M23 4h5v24h32v8H28v24h-5V36H4v-8h19Z" fill="#DC1E35"/>
+  </g>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="none" stroke="#D7F5FF" stroke-width="2"/>
+</svg>

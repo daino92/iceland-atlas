@@ -5,6 +5,7 @@ import type {
   Location,
   PlaceWeather,
   RouteWeatherSegment,
+  RouteElevation,
   WeatherGridPoint,
 } from "@/types";
 import { getJson } from "@/lib";
@@ -112,14 +113,16 @@ const routeSamples = (coordinates: [number, number][]) => {
 export const getRouteWeather = async (
   coordinates: [number, number][],
   signal?: AbortSignal,
+  date?: string,
+  time = "08:00",
 ): Promise<RouteWeatherSegment[]> => {
   const samples = routeSamples(coordinates);
   if (!samples.length) return [];
   const params = new URLSearchParams({
-    latitude: samples.map(([, lat]) => lat).join(","),
-    longitude: samples.map(([lng]) => lng).join(","),
-    current:
-      "temperature_2m,precipitation,weather_code,wind_gusts_10m",
+    latitude: samples.map(([lat]) => lat).join(","),
+    longitude: samples.map(([, lng]) => lng).join(","),
+    hourly: "temperature_2m,precipitation,weather_code,wind_gusts_10m",
+    ...(date ? { start_date: date, end_date: date } : { forecast_days: "3" }),
     timezone: "Atlantic/Reykjavik",
   });
   const data = await getJson<any>(
@@ -127,14 +130,23 @@ export const getRouteWeather = async (
     signal,
   );
   const rows = Array.isArray(data) ? data : [data];
+  const target = date ? `${date}T${time}` : undefined;
   return rows.map((row, index) => ({
     label: index === 0 ? "Start" : index === rows.length - 1 ? "End" : `Segment ${index}`,
-    latitude: samples[index][1],
-    longitude: samples[index][0],
-    temperature: row.current?.temperature_2m ?? 0,
-    windGusts: row.current?.wind_gusts_10m ?? 0,
-    precipitation: row.current?.precipitation ?? 0,
-    weatherCode: row.current?.weather_code ?? 0,
+    latitude: samples[index][0],
+    longitude: samples[index][1],
+    temperature: row.hourly
+      ? row.hourly.temperature_2m[Math.max(0, row.hourly.time.indexOf(target ?? row.hourly.time[0]))] ?? 0
+      : row.current?.temperature_2m ?? 0,
+    windGusts: row.hourly
+      ? row.hourly.wind_gusts_10m[Math.max(0, row.hourly.time.indexOf(target ?? row.hourly.time[0]))] ?? 0
+      : row.current?.wind_gusts_10m ?? 0,
+    precipitation: row.hourly
+      ? row.hourly.precipitation[Math.max(0, row.hourly.time.indexOf(target ?? row.hourly.time[0]))] ?? 0
+      : row.current?.precipitation ?? 0,
+    weatherCode: row.hourly
+      ? row.hourly.weather_code[Math.max(0, row.hourly.time.indexOf(target ?? row.hourly.time[0]))] ?? 0
+      : row.current?.weather_code ?? 0,
   }));
 };
 
@@ -143,12 +155,14 @@ const AURORA_LONGITUDE = -21.9426;
 
 export const getAuroraForecast = async (
   signal?: AbortSignal,
+  date?: string,
+  time = "21:00",
 ): Promise<AuroraForecast> => {
   const weatherParams = new URLSearchParams({
     latitude: String(AURORA_LATITUDE),
     longitude: String(AURORA_LONGITUDE),
     hourly: "cloud_cover",
-    forecast_days: "1",
+    ...(date ? { start_date: date, end_date: date } : { forecast_days: "1" }),
     timezone: "Atlantic/Reykjavik",
   });
   const [cloudData, kpData] = await Promise.all([
@@ -159,9 +173,10 @@ export const getAuroraForecast = async (
     getJson<any[]>("/api/aurora/kp", signal),
   ]);
   const cloudValues = cloudData.hourly?.cloud_cover ?? [];
-  const cloudCover = cloudValues.length
-    ? Number(cloudValues[Math.min(20, cloudValues.length - 1)])
-    : null;
+  const targetIndex = date
+    ? Math.max(0, (cloudData.hourly?.time ?? []).indexOf(`${date}T${time}`))
+    : Math.min(20, cloudValues.length - 1);
+  const cloudCover = cloudValues.length ? Number(cloudValues[targetIndex]) : null;
   const kpRows = Array.isArray(kpData) ? kpData.slice(1) : [];
   const kpCandidates = kpRows
     .map((row) => Number(row?.[1] ?? row?.[2]))
@@ -171,4 +186,37 @@ export const getAuroraForecast = async (
   const cloudScore = cloudCover === null ? 0 : cloudCover <= 35 ? 2 : cloudCover <= 65 ? 1 : 0;
   const total = score + cloudScore;
   return { kp, cloudCover, level: total >= 3 ? "good" : total >= 1 ? "possible" : "unlikely" };
+};
+
+export const getRouteElevation = async (
+  coordinates: [number, number][],
+  signal?: AbortSignal,
+): Promise<RouteElevation> => {
+  const samples = routeSamples(coordinates);
+  const params = new URLSearchParams({
+    latitude: samples.map(([lat]) => lat).join(","),
+    longitude: samples.map(([, lng]) => lng).join(","),
+  });
+  const data = await getJson<{ elevation?: number[] }>(
+    `https://api.open-meteo.com/v1/elevation?${params}`,
+    signal,
+  );
+  const elevations = data.elevation ?? [];
+  const ascentMeters = elevations.reduce(
+    (total, elevation, index) =>
+      total + (index ? Math.max(0, elevation - elevations[index - 1]) : 0),
+    0,
+  );
+  const descentMeters = elevations.reduce(
+    (total, elevation, index) =>
+      total + (index ? Math.max(0, elevations[index - 1] - elevation) : 0),
+    0,
+  );
+  const maxElevationMeters = Math.max(...elevations, 0);
+  return {
+    ascentMeters,
+    descentMeters,
+    maxElevationMeters,
+    difficulty: ascentMeters > 900 ? "difficult" : ascentMeters > 400 ? "moderate" : "easy",
+  };
 };

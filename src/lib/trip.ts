@@ -7,7 +7,7 @@ import type {
   TripData,
   TripDay,
 } from "@/types";
-import { decodeTrip } from "@/lib";
+import { decodeTrip, optimizeDayStops } from "@/lib";
 
 const STORAGE_KEY = "iceland-atlas-trip-v1";
 const EMPTY_STATE: PlaceState = {
@@ -19,6 +19,9 @@ const INITIAL_TRIP: TripData = {
   placeStates: {},
   startDate: new Date().toISOString().slice(0, 10),
   budgetItems: [],
+  startTime: "08:00",
+  currency: "EUR",
+  travelers: 2,
   days: [
     { id: "day-1", name: "Day 1", placeIds: [] },
     { id: "day-2", name: "Day 2", placeIds: [] },
@@ -40,11 +43,15 @@ const loadTrip = (): TripData => {
       placeStates: parsed.placeStates ?? {},
       startDate: parsed.startDate ?? INITIAL_TRIP.startDate,
       budgetItems: parsed.budgetItems ?? [],
+      startTime: parsed.startTime ?? INITIAL_TRIP.startTime,
+      currency: parsed.currency ?? INITIAL_TRIP.currency,
+      travelers: parsed.travelers ?? INITIAL_TRIP.travelers,
       days: parsed.days?.length
         ? parsed.days.map((day) => ({
             ...day,
             startPlaceId: day.startPlaceId,
             endPlaceId: day.endPlaceId,
+            overnightPlaceId: day.overnightPlaceId,
           }))
         : INITIAL_TRIP.days,
     };
@@ -208,6 +215,37 @@ export const useTripStore = () => {
     setTrip((current) => ({ ...current, startDate }));
   }, []);
 
+  const setStartTime = useCallback((startTime: string) => {
+    setTrip((current) => ({ ...current, startTime }));
+  }, []);
+
+  const setCurrency = useCallback((currency: TripData["currency"]) => {
+    setTrip((current) => ({ ...current, currency }));
+  }, []);
+
+  const setTravelers = useCallback((travelers: number) => {
+    setTrip((current) => ({
+      ...current,
+      travelers: Math.max(1, Math.round(travelers) || 1),
+    }));
+  }, []);
+
+  const setOvernightPlace = useCallback((dayId: string, placeId?: string) => {
+    setTrip((current) => ({
+      ...current,
+      days: current.days.map((day) =>
+        day.id === dayId ? { ...day, overnightPlaceId: placeId } : day,
+      ),
+    }));
+  }, []);
+
+  const optimizeDay = useCallback(
+    (dayId: string, allPlaces: Location[]) => {
+      setTrip((current) => optimizeDayStops(current, dayId, allPlaces));
+    },
+    [],
+  );
+
   const addBudgetItem = useCallback(
     (dayId: string, category: BudgetCategory, amount: number) => {
       if (!Number.isFinite(amount) || amount <= 0) return;
@@ -253,6 +291,11 @@ export const useTripStore = () => {
     movePlaceBetweenDays,
     setDayEndpoints,
     setStartDate,
+    setStartTime,
+    setCurrency,
+    setTravelers,
+    setOvernightPlace,
+    optimizeDay,
     addBudgetItem,
     removeBudgetItem,
     favoritePlaces,

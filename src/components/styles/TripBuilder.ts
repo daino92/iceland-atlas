@@ -377,3 +377,15 @@ export const BudgetForm = styled("div")({
     fontSize: "10px",
   },
 });
+
+export const TripTimeline = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  gap: "3px",
+  marginTop: "6px",
+  padding: "8px",
+  borderRadius: "9px",
+  background: "rgba(155, 215, 255, 0.08)",
+  fontSize: "10px",
+  "& span": { color: "var(--muted)" },
+});

@@ -23,6 +23,7 @@ import {
   useDayRisk,
   useDrivingRoute,
   useRouteWeather,
+  useRouteElevation,
 } from "@/hooks";
 import type { Location, Language, PlaceState } from "@/types";
 
@@ -45,6 +46,8 @@ const Atlas = ({ language, setLanguage }: Props) => {
   const [activeDayId, setActiveDayId] = useState<string | null>(null);
   const [showRoadConditions, setShowRoadConditions] = useState(false);
   const [showWeatherLayer, setShowWeatherLayer] = useState(false);
+  const [fitRouteSignal, setFitRouteSignal] = useState(0);
+  const [replayRouteSignal, setReplayRouteSignal] = useState(0);
   const store = useTripStore();
 
   const filteredPlaces = useMemo(() => {
@@ -74,6 +77,14 @@ const Atlas = ({ language, setLanguage }: Props) => {
     const day = store.trip.days.find((item) => item.id === activeDayId);
     return day ? resolveDayRoutePlaces(day, LOCATIONS) : [];
   }, [activeDayId, store.trip.days]);
+  const activeDayDate = useMemo(() => {
+    const index = store.trip.days.findIndex((day) => day.id === activeDayId);
+    const date = new Date(
+      `${store.trip.startDate ?? new Date().toISOString().slice(0, 10)}T00:00:00Z`,
+    );
+    date.setUTCDate(date.getUTCDate() + Math.max(index, 0));
+    return date.toISOString().slice(0, 10);
+  }, [activeDayId, store.trip.days, store.trip.startDate]);
 
   const { data: route = null, isLoading: routeLoading } =
     useDrivingRoute(activeDayPlaces);
@@ -82,8 +93,19 @@ const Atlas = ({ language, setLanguage }: Props) => {
     Boolean(activeDayId),
   );
   const { data: routeWeather = [], isLoading: routeWeatherLoading } =
-    useRouteWeather(route, Boolean(activeDayId));
+    useRouteWeather(
+      route,
+      Boolean(activeDayId),
+      activeDayDate,
+      store.trip.startTime ?? "08:00",
+    );
   const { data: aurora = null, isLoading: auroraLoading } = useAuroraForecast(
+    Boolean(activeDayId),
+    activeDayDate,
+    "21:00",
+  );
+  const { data: elevation = null, isLoading: elevationLoading } = useRouteElevation(
+    route,
     Boolean(activeDayId),
   );
 
@@ -109,6 +131,8 @@ const Atlas = ({ language, setLanguage }: Props) => {
     () => setShowRoadConditions((value) => !value),
     [],
   );
+  const fitRoute = useCallback(() => setFitRouteSignal((value) => value + 1), []);
+  const replayRoute = useCallback(() => setReplayRouteSignal((value) => value + 1), []);
   const showTrip = useCallback(() => setActiveTab("trip"), []);
   const closePlace = useCallback(() => setSelectedPlace(null), []);
   const selectDay = useCallback((id: string | null) => {
@@ -190,8 +214,16 @@ const Atlas = ({ language, setLanguage }: Props) => {
         movePlace={store.movePlace}
         movePlaceBetweenDays={store.movePlaceBetweenDays}
         setDayEndpoints={store.setDayEndpoints}
+        setOvernightPlace={store.setOvernightPlace}
         startDate={store.trip.startDate ?? ""}
           setStartDate={store.setStartDate}
+          startTime={store.trip.startTime ?? "08:00"}
+        setStartTime={store.setStartTime}
+        currency={store.trip.currency ?? "EUR"}
+        travelers={store.trip.travelers ?? 1}
+        setCurrency={store.setCurrency}
+        setTravelers={store.setTravelers}
+          optimizeDay={(dayId) => store.optimizeDay(dayId, LOCATIONS)}
           budgetItems={store.trip.budgetItems ?? []}
           addBudgetItem={store.addBudgetItem}
           removeBudgetItem={store.removeBudgetItem}
@@ -205,6 +237,8 @@ const Atlas = ({ language, setLanguage }: Props) => {
         routeWeatherLoading={routeWeatherLoading}
         aurora={aurora}
         auroraLoading={auroraLoading}
+        elevation={elevation}
+        elevationLoading={elevationLoading}
       />
       <MapWrap className="map-wrap">
         <MapTools
@@ -217,6 +251,8 @@ const Atlas = ({ language, setLanguage }: Props) => {
           onSelectDay={showTrip}
           route={route}
           routeLoading={routeLoading}
+          onFitRoute={fitRoute}
+          onReplayRoute={replayRoute}
         />
         <IcelandMap
           language={language}
@@ -227,6 +263,8 @@ const Atlas = ({ language, setLanguage }: Props) => {
           routeCoordinates={route?.coordinates}
           showRoadConditions={showRoadConditions}
           showWeatherLayer={showWeatherLayer}
+          fitRouteSignal={fitRouteSignal}
+          replayRouteSignal={replayRouteSignal}
         />
       </MapWrap>
       {selectedPlace && (

@@ -88,6 +88,21 @@
     ,"baths": "Λουτρά"
     ,"activities": "Δραστηριότητες"
     ,"categories": "κατηγορίες"
+    ,"departureTime": "Ώρα αναχώρησης"
+    ,"optimizeRoute": "Βελτιστοποίηση ημέρας"
+    ,"timeline": "Χρονοδιάγραμμα ημέρας"
+    ,"departure": "Αναχώρηση"
+    ,"arrival": "Εκτιμώμενη άφιξη"
+    ,"plannedTime": "Προγραμματισμένος χρόνος"
+    ,"overnight": "Διανυκτέρευση"
+    ,"travelers": "ταξιδιώτες"
+    ,"perPerson": "ανά άτομο"
+    ,"elevation": "Υψομετρικό διαδρομής"
+    ,"easy": "Εύκολο"
+    ,"moderate": "Μέτριο"
+    ,"difficult": "Δύσκολο"
+    ,"fitRoute": "Εστίαση στη διαδρομή"
+    ,"replayRoute": "Αναπαραγωγή διαδρομής"
   },
   "categories": {
     "attraction": "Αξιοθέατο",

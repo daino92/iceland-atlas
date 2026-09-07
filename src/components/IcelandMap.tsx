@@ -21,6 +21,8 @@ interface Props {
   routeCoordinates?: [number, number][];
   showRoadConditions: boolean;
   showWeatherLayer: boolean;
+  fitRouteSignal: number;
+  replayRouteSignal: number;
 }
 
 type Cluster = { lat: number; lng: number; places: Location[] };
@@ -113,6 +115,8 @@ const IcelandMap = ({
   routeCoordinates = EMPTY_ROUTE,
   showRoadConditions,
   showWeatherLayer,
+  fitRouteSignal,
+  replayRouteSignal,
 }: Props) => {
   const { data: roads } = useRoadConditions(showRoadConditions);
   const { data: weatherPoints } = useWeatherGrid(showWeatherLayer);
@@ -122,6 +126,7 @@ const IcelandMap = ({
   const routeLayerRef = useRef<L.Polyline | null>(null);
   const roadsLayerRef = useRef<L.GeoJSON | null>(null);
   const weatherLayerRef = useRef<L.LayerGroup | null>(null);
+  const replayTimerRef = useRef<number | null>(null);
   const placesRef = useRef(places);
   const selectedRef = useRef(selectedPlace);
   const onSelectRef = useRef(onSelect);
@@ -248,6 +253,41 @@ const IcelandMap = ({
       });
     }
   }, [routeCoordinates]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || routeCoordinates.length < 2 || !fitRouteSignal) return;
+    map.fitBounds(L.latLngBounds(routeCoordinates), {
+      padding: [70, 70],
+      maxZoom: 10,
+    });
+  }, [fitRouteSignal, routeCoordinates]);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || routeCoordinates.length < 2 || !replayRouteSignal) return;
+    if (replayTimerRef.current) window.clearInterval(replayTimerRef.current);
+    const line = L.polyline([routeCoordinates[0]], {
+      color: "#F4C95D",
+      weight: 5,
+      opacity: 0.92,
+    }).addTo(map);
+    routeLayerRef.current?.remove();
+    routeLayerRef.current = line;
+    let index = 1;
+    replayTimerRef.current = window.setInterval(() => {
+      line.addLatLng(routeCoordinates[index]);
+      index += 1;
+      if (index >= routeCoordinates.length && replayTimerRef.current) {
+        window.clearInterval(replayTimerRef.current);
+        replayTimerRef.current = null;
+      }
+    }, 35);
+    return () => {
+      if (replayTimerRef.current) window.clearInterval(replayTimerRef.current);
+      replayTimerRef.current = null;
+    };
+  }, [replayRouteSignal, routeCoordinates]);
 
   useEffect(() => {
     const map = mapRef.current;

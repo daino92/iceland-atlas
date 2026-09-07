@@ -12,6 +12,8 @@ interface Props {
   onSelectDay: () => void;
   route: RouteResult | null;
   routeLoading: boolean;
+  onFitRoute: () => void;
+  onReplayRoute: () => void;
 }
 
 const MapTools = ({
@@ -24,6 +26,8 @@ const MapTools = ({
   onSelectDay,
   route,
   routeLoading,
+  onFitRoute,
+  onReplayRoute,
 }: Props) => {
   return (
     <MapToolsBar className="map-tools">
@@ -48,6 +52,12 @@ const MapTools = ({
               ? `${Math.round(route.distanceMeters / 1000)} km`
               : "—"}
         </ActiveDayPill>
+      )}
+      {route && (
+        <>
+          <button onClick={onFitRoute}>{UI[language].fitRoute}</button>
+          <button onClick={onReplayRoute}>{UI[language].replayRoute}</button>
+        </>
       )}
     </MapToolsBar>
   );

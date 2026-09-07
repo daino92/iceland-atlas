@@ -39,6 +39,7 @@ import {
   BudgetSummary,
   BudgetForm,
   TripStatistics,
+  TripTimeline,
 } from "@/components";
 import { UI } from "@/i18n";
 import {
@@ -52,12 +53,14 @@ import {
   getDaylightInfo,
   weatherCodeLabel,
   getTripStats,
+  addMinutesToTime,
   resolveDayPlaces,
 } from "@/lib";
 import type {
   DayRisk,
   DayFeasibility,
   AuroraForecast,
+  RouteElevation,
   BudgetCategory,
   BudgetItem,
   Location,
@@ -87,8 +90,16 @@ interface Props {
     dayId: string,
     endpoints: { startPlaceId?: string; endPlaceId?: string },
   ) => void;
+  setOvernightPlace: (dayId: string, placeId?: string) => void;
   startDate: string;
   setStartDate: (date: string) => void;
+  startTime: string;
+  setStartTime: (time: string) => void;
+  optimizeDay: (dayId: string) => void;
+  currency: "EUR" | "ISK" | "USD";
+  travelers: number;
+  setCurrency: (currency: "EUR" | "ISK" | "USD") => void;
+  setTravelers: (travelers: number) => void;
   onSelect: (place: Location) => void;
   onShare: () => void;
   onExport: (format: "json" | "csv") => void;
@@ -100,6 +111,8 @@ interface Props {
   routeWeatherLoading: boolean;
   aurora: AuroraForecast | null;
   auroraLoading: boolean;
+  elevation: RouteElevation | null;
+  elevationLoading: boolean;
   budgetItems: BudgetItem[];
   addBudgetItem: (dayId: string, category: BudgetCategory, amount: number) => void;
   removeBudgetItem: (itemId: string) => void;
@@ -118,8 +131,16 @@ const TripBuilder = ({
   movePlace,
   movePlaceBetweenDays,
   setDayEndpoints,
+  setOvernightPlace,
   startDate,
   setStartDate,
+  startTime,
+  setStartTime,
+  optimizeDay,
+  currency,
+  travelers,
+  setCurrency,
+  setTravelers,
   onSelect,
   onShare,
   onExport,
@@ -131,6 +152,8 @@ const TripBuilder = ({
   routeWeatherLoading,
   aurora,
   auroraLoading,
+  elevation,
+  elevationLoading,
   budgetItems,
   addBudgetItem,
   removeBudgetItem,
@@ -261,6 +284,28 @@ const TripBuilder = ({
     (event: ChangeEvent<HTMLInputElement>) => setStartDate(event.currentTarget.value),
     [setStartDate],
   );
+  const changeStartTime = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => setStartTime(event.currentTarget.value),
+    [setStartTime],
+  );
+  const changeCurrency = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) =>
+      setCurrency(event.currentTarget.value as "EUR" | "ISK" | "USD"),
+    [setCurrency],
+  );
+  const changeTravelers = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => setTravelers(Number(event.currentTarget.value)),
+    [setTravelers],
+  );
+  const changeOvernight = useCallback(
+    (event: ChangeEvent<HTMLSelectElement>) => {
+      if (activeDayId) setOvernightPlace(activeDayId, event.currentTarget.value || undefined);
+    },
+    [activeDayId, setOvernightPlace],
+  );
+  const optimizeActiveDay = useCallback(() => {
+    if (activeDayId) optimizeDay(activeDayId);
+  }, [activeDayId, optimizeDay]);
   const changeBudgetCategory = useCallback(
     (event: ChangeEvent<HTMLSelectElement>) =>
       setBudgetCategory(event.currentTarget.value as BudgetCategory),
@@ -365,6 +410,19 @@ const TripBuilder = ({
           {UI[language].tripDate}
           <input type="date" value={startDate} onChange={changeStartDate} />
         </label>
+        <label>
+          {UI[language].departureTime}
+          <input type="time" value={startTime} onChange={changeStartTime} />
+        </label>
+        <label>
+          {UI[language].overnight}
+          <select value={activeDay?.overnightPlaceId ?? ""} onChange={changeOvernight}>
+            <option value="">{UI[language].notSet}</option>
+            {allPlaces.filter((place) => place.category === "stay").map((place) => (
+              <option key={place.id} value={place.id}>{place.name}</option>
+            ))}
+          </select>
+        </label>
       </DayEndpoints>
 
       <TripActions className="trip-actions">
@@ -463,6 +521,18 @@ const TripBuilder = ({
               <span>{UI[language].stops}</span>
             </div>
           </RouteStats>
+          <RiskSummary className="elevation-summary">
+            <b>{UI[language].elevation}</b>
+            {elevationLoading ? (
+              <span>…</span>
+            ) : elevation ? (
+              <span>
+                ↑ {Math.round(elevation.ascentMeters)}m · ↓ {Math.round(elevation.descentMeters)}m · {UI[language][elevation.difficulty]}
+              </span>
+            ) : (
+              <span>—</span>
+            )}
+          </RiskSummary>
           <RiskSummary
             className={`risk-summary risk-${risk?.level ?? "clear"}`}
           >
@@ -517,7 +587,14 @@ const TripBuilder = ({
           </AuroraSummary>
 
           <BudgetSummary className="budget-summary">
-            <b>{UI[language].budget} · {totalBudget.toFixed(0)} {UI[language].currency}</b>
+            <b>{UI[language].budget} · {totalBudget.toFixed(0)} {currency} · {UI[language].perPerson} {(totalBudget / travelers).toFixed(0)} {currency}</b>
+            <BudgetForm className="budget-form budget-settings">
+              <select value={currency} onChange={changeCurrency}>
+                {(["EUR", "ISK", "USD"] as const).map((item) => <option key={item} value={item}>{item}</option>)}
+              </select>
+              <input type="number" min="1" step="1" value={travelers} onChange={changeTravelers} aria-label={UI[language].travelers} />
+              <span>{UI[language].travelers}</span>
+            </BudgetForm>
             <BudgetForm className="budget-form">
               <select value={budgetCategory} onChange={changeBudgetCategory}>
                 {(["rentalCar", "fuel", "hotels", "food", "parking", "baths", "activities"] as BudgetCategory[]).map((category) => (
@@ -529,7 +606,7 @@ const TripBuilder = ({
             </BudgetForm>
             {activeBudget.map((item) => (
               <span key={item.id}>
-                {UI[language][item.category]} · {item.amount.toFixed(0)} {UI[language].currency}
+                {UI[language][item.category]} · {item.amount.toFixed(0)} {currency}
                 <button value={item.id} onClick={removeBudget}>×</button>
               </span>
             ))}
@@ -612,6 +689,15 @@ const TripBuilder = ({
               {Math.round(feasibility.totalMinutes)} / {Math.round(feasibility.daylightMinutes)} {UI[language].plannedMinutes}
             </span>
           </FeasibilitySummary>
+          <TripActions className="day-planning-actions">
+            <button onClick={optimizeActiveDay}>{UI[language].optimizeRoute}</button>
+          </TripActions>
+          <TripTimeline className="trip-timeline">
+            <b>{UI[language].timeline}</b>
+            <span>{startTime} · {UI[language].departure}</span>
+            <span>{addMinutesToTime(startTime, route ? route.durationSeconds / 60 : 0)} · {UI[language].arrival}</span>
+            <span>{UI[language].plannedTime}: {Math.round(feasibility.totalMinutes)} min</span>
+          </TripTimeline>
         </ActiveDayDetail>
       )}
     </TripPanel>
