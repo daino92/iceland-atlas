@@ -1,7 +1,7 @@
 import { QueryClientProvider } from "@tanstack/react-query";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import "leaflet/dist/leaflet.css";
 import { registerSW } from "virtual:pwa-register";
 
@@ -18,9 +18,9 @@ if (!ROOT_ELEMENT) throw new Error("Missing application mount element: #root");
 createRoot(ROOT_ELEMENT).render(
   <StrictMode>
     <QueryClientProvider client={QUERY_CLIENT}>
-      <BrowserRouter>
+      <HashRouter>
         <App />
-      </BrowserRouter>
+      </HashRouter>
     </QueryClientProvider>
   </StrictMode>,
 );
