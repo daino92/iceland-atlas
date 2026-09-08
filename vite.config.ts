@@ -4,6 +4,7 @@ import path from "node:path";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+  base: "/iceland-atlas/",
   plugins: [
     react(),
     VitePWA({
@@ -43,7 +44,7 @@ export default defineConfig({
           url.replace(
             /^\/api\/roads\/query/,
             "/arcgis/rest/services/data/faerd/FeatureServer/16/query",
-        ),
+          ),
       },
       "/api/aurora/kp": {
         target: "https://services.swpc.noaa.gov",
