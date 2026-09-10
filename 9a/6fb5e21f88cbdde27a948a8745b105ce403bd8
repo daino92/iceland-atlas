@@ -1,0 +1,19 @@
+README.md
+  s_61d9b4c96be1fd::t_acae10228d87a3 5-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "9a6fb5e21f88cbdde27a948a8745b105ce403bd8",
+  "prompts": {},
+  "sessions": {
+    "s_61d9b4c96be1fd": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a08466-d290-7f40-9599-9401b9b97446",
+        "model": "gpt-5.6-luna"
+      },
+      "human_author": "Dionysis <daino92@gmail.com>"
+    }
+  }
+}
