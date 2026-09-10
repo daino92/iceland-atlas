@@ -2,6 +2,12 @@
 
 Interactive Iceland trip planner built with React + Vite + TypeScript and configured for pnpm.
 
+[![Iceland Atlas demo](assets/iceland-atlas-demo.gif)](https://daino92.github.io/iceland-atlas/)
+
+[Live Demo](https://daino92.github.io/iceland-atlas/)
+
+Iceland Atlas helps travelers discover points of interest, build day-by-day itineraries, and plan routes with live travel information for weather and road conditions.
+
 ## Run
 
 ```bash
